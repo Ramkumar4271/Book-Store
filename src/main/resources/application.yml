@@ -1,0 +1,55 @@
+server:
+  servlet:
+    context-path: /BookStore
+
+application:
+  name: Book Store
+ 
+spring:
+  profiles: 
+    active: dev  
+   
+
+---  
+
+server:
+  profiles: dev
+  port: '8080'
+spring:
+  profiles: dev
+  datasource:
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/bookStore?currentSchema=dev
+    password: '123456'
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: 'true'
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+  application:
+    name: college
+
+---
+
+server:
+  profiles: prod
+  port: '8081'
+spring:
+  profiles: prod
+  datasource:
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/bookStore?currentSchema=prod
+    password: '123456'
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: 'true'
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+  application:
+    name: collegeProd
