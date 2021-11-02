@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,6 +28,28 @@ public class CommonExceptionHandler {
 						.builder()
 						.status(HttpStatus.INTERNAL_SERVER_ERROR)
 						.error(e.getMessage())
+						.build());
+	}
+	
+	@ExceptionHandler
+	public final ResponseEntity<APIResponse> handleUserNotFoundException(UsernameNotFoundException e,  WebRequest wr){
+		return ResponseEntity
+				.status(HttpStatus.BAD_REQUEST)
+				.body(APIResponse
+						.builder()
+						.status(HttpStatus.BAD_REQUEST)
+						.error("Invalid User credentials!")
+						.build());
+	}
+	
+	@ExceptionHandler
+	public final ResponseEntity<APIResponse> handleBadCredentialsException(BadCredentialsException e,  WebRequest wr){
+		return ResponseEntity
+				.status(HttpStatus.BAD_REQUEST)
+				.body(APIResponse
+						.builder()
+						.status(HttpStatus.BAD_REQUEST)
+						.error("Invalid User credentials!")
 						.build());
 	}
 	

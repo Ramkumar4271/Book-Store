@@ -4,6 +4,9 @@ server:
 
 application:
   name: Book Store
+  jwtSecret: RamBookStore
+  jwtExpirationMs: 120000
+# Expiration time: 1 Hour (1Hr * 60mins * 60sec * 1000millisec) = 120000 
  
 spring:
   profiles: 

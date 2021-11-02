@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.SortDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,21 +30,25 @@ public class BookController {
 	private BookService service;
 	
 	@PostMapping("/books")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public APIResponse addBook(@Valid @RequestBody Book book) {
 		return service.createBook(book);
 	}
 	
 	@PutMapping("/books/{id}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public APIResponse modifyBookDetails(@PathVariable @Min(value = 1, message = "Please provide valid ID") long id, @RequestBody Book book) {
 		return service.updateBook(id, book);
 	}
 	
 	@DeleteMapping("/books/{id}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public APIResponse deleteExitingBook(@PathVariable @Min(value = 1, message = "Please provide valid ID") long id) {
 		return service.deleteBook(id);
 	}
 	
 	@GetMapping("/books")
+	@PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
 	public APIResponse getBooks(
 			@RequestParam(required = false) String title,
 			@RequestParam(required = false) Set<Integer> years,
@@ -53,6 +58,7 @@ public class BookController {
 	}
 	
 	@GetMapping("/books/editions")
+	@PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
 	public APIResponse getEditions() {
 		return service.getEdition();
 	}
