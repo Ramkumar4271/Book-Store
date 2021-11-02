@@ -10,7 +10,9 @@ Below Features are available in this API:
   4. Both Authentication and Authorization features are added.
 
 NOTE:
-Inserted below rows into Roles table:
-insert into dev.roles values (1, 'ADMIN');
-insert into dev.roles values (2, 'USER');
-commit;
+  1. Inserted below rows into Roles table:
+        insert into dev.roles values (1, 'ADMIN');
+        insert into dev.roles values (2, 'USER');
+        commit;
+     
+
